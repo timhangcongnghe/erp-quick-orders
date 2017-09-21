@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped flip-content">
+    <thead class="flip-content">
+        <tr>
+            <th width="0%" class="bg-yellow bg-font-yellow text-nowrap text-left"><%= t('.product_code') %></th>
+            <th class="bg-yellow bg-font-yellow text-left"><%= t('.product_name') %></th>
+            <th class="bg-yellow bg-font-yellow text-nowrap"><%= t('.price') %></th>
+            <th class="bg-yellow bg-font-yellow text-nowrap"><%= t('.quantity') %></th>
+            <th class="bg-yellow bg-font-yellow text-nowrap"><%= t('.total') %></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @order.order_details.each do |order_detail| %>
+          <tr>
+              <td width="10%" class="text-left"><span class="font-green-sharp sbold"><%= order_detail.product_code %></span></td>
+              <td class="text-left"><%= link_to(order_detail.product_name, erp_products.edit_backend_product_path(order_detail.product), target: '_blank') %></td>
+              <td class="text-left"><strong><%= format_price(order_detail.price) %></strong></td>
+              <td class="text-left"><strong><%= order_detail.quantity %></strong></td>
+              <td class="text-left"><strong><%= format_price(order_detail.total) %></strong></td>
+          </tr>
+          <% end %>
+    </tbody>
+</table>

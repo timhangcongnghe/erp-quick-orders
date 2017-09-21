@@ -1,25 +1,44 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title do %>
+    <%= t('.quick_orders') %>
+<% end %>
 
-<h1>Orders</h1>
+<% content_for :page_title do %>
+    <i class="fa fa-file-text"></i> <%= t('.quick_orders') %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+<%= erp_datalist(
+    url: erp_quick_orders.list_backend_orders_path,
+    keywords: [
+        {
+            text: t('.code'), name: 'erp_quick_orders_orders.code'
+        }
+    ],
+    actions: [
+        {
+            text: '<i class="fa fa-trash"></i> '+t('.delete'),
+            url: erp_quick_orders.delete_all_backend_orders_path,
+            data_method: 'DELETE',
+            data_confirm: t('delete_confirm')
+        }
+    ],
+    columns: [
+        {
+            text: t('.code'), name: 'code', value: true, checked: true
+        },
+        {
+            text: t('.customer'), name: 'customer', value: true, checked: true
+        },
+        {
+            text: t('.phone'), name: 'phone', value: true, checked: true
+        },
+        {
+            text: t('.note'), name: 'note', value: true, checked: true
+        },
+        {
+            text: t('.order_date'), name: 'order_date', value: true, checked: true
+        },
+        {
+            text: t('.total'), name: 'total', value: true, checked: true
+        }
+    ]
+) %>

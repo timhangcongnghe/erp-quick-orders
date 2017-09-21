@@ -1,0 +1,83 @@
+<table class="table table-advance table-hover table-striped order-column">
+    <thead>
+        <tr>
+            <th width='1%'>
+                <%= erp_datalist_check_all %>
+            </th>
+            <% if get_columns(params).include?("code") %>
+                <th><%= t('.code') %></th>
+            <% end %>
+            <% if get_columns(params).include?("customer") %>
+                <th><%= t('.customer') %></th>
+            <% end %>
+            <% if get_columns(params).include?("customer") %>
+                <th><%= t('.phone') %></th>
+            <% end %>
+            <% if get_columns(params).include?("customer") %>
+                <th width='15%'><%= t('.note') %></th>
+            <% end %>
+            <% if get_columns(params).include?("order_date") %>
+                <th class="sortable" sort-by='erp_quick_orders_orders.created_at'>
+                    <%= t('.order_date') %>
+                </th>
+            <% end %>            
+            <% if get_columns(params).include?("total") %>
+                <th>
+                    <%= t('.total') %>
+                </th>
+            <% end %>
+            <th width="7%"><%= t('actions') %></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @orders.each do |order| %>
+            <tr class="odd gradeX has-child-table" data-url="<%= erp_quick_orders.order_details_backend_orders_path(id: order.id) %>">
+                <td>
+                    <%= erp_datalist_check_row(id: order.id) %>
+                </td>
+                <% if get_columns(params).include?("code") %>
+                    <td>
+                        <i class="fa fa-plus expand tr-expand-button"></i>
+                        <span class="font-yellow-gold sbold"><%= order.code %></span>
+                    </td>
+                <% end %>
+                <% if get_columns(params).include?("customer") %>
+                    <td><%= order.customer_name %></td>
+                <% end %>
+                <% if get_columns(params).include?("phone") %>
+                    <td><%= order.phone %></td>
+                <% end %>
+                <% if get_columns(params).include?("note") %>
+                    <td><%= order.note %></td>
+                <% end %>
+                <% if get_columns(params).include?("order_date") %>
+                    <td><%= order.created_at.strftime("%d/%m/%Y %I:%M%p") %></td>
+                <% end %>                
+                <% if get_columns(params).include?("total") %>
+                    <td><strong class="format-price"><%= format_price(order.cache_total) %></strong></td>
+                <% end %>
+                <td>
+                    <%
+                        actions = []
+                        actions << {
+                            text: '<i class="fa fa-trash"></i> '+t('.delete'),
+                            url: erp_quick_orders.backend_order_path(order),
+                            data_method: 'DELETE',
+                            class: 'ajax-link',
+                            data_confirm: t('delete_confirm')
+                        }
+                    %>
+                    <%= erp_datalist_row_actions(
+                        actions
+                    ) %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<% if @orders.empty? %>
+    <div class="datalist-empty-line"><%= t('.no_matching_records_found') %></div>
+<% end %>
+    
+<%= erp_datalist_pagination(@orders) %>

@@ -1,0 +1,32 @@
+vi:
+  erp:
+    quick_orders:
+      backend:
+        orders:
+          destroy:
+            success: "Xóa đơn đặt hàng nhanh thành công."
+          delete_all:
+            success: "Xóa đơn đặt hàng nhanh được chọn thành công."
+          index:
+            quick_orders: "Đơn đặt hàng nhanh"
+            code: "Mã đơn hàng"
+            customer: "Tên khách hàng"
+            phone: "Số điện thoại"
+            note: "Ghi chú"
+            order_date: "Ngày đặt"
+            total: "Tổng tiền"
+            delete: "Xóa đơn hàng"
+          list:
+            code: "Mã đơn hàng"
+            customer: "Tên khách hàng"
+            phone: "Số điện thoại"
+            note: "Ghi chú"
+            order_date: "Ngày đặt"
+            total: "Tổng tiền"
+            delete: "Xóa đơn hàng"
+          order_details:
+            product_code: "Mã sản phẩm"
+            product_name: "Tên sản phẩm"
+            price: "Giá sản phẩm"
+            quantity: "Số lượng đặt"
+            total: "Thành tiền"
