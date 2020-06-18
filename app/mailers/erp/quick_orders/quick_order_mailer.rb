@@ -4,7 +4,8 @@ module Erp::QuickOrders
     helper Erp::OnlineStore::ApplicationHelper
     
     def sending_admin_email_order_confirmation(quick_order)
-      @recipients = ['Kinh Doanh <kinhdoanh@hoangkhang.com.vn>', 'Trương Thị Thanh Huyền <huyenttt@hoangkhang.com.vn>', 'Đỗ Thị Đa Nguyên <nguyendtd@hoangkhang.com.vn>', 'Sơn Nguyễn <sonnn@hoangkhang.com.vn>']
+      #@recipients = ['Kinh Doanh <kinhdoanh@hoangkhang.com.vn>', 'Trương Thị Thanh Huyền <huyenttt@hoangkhang.com.vn>', 'Đỗ Thị Đa Nguyên <nguyendtd@hoangkhang.com.vn>', 'Sơn Nguyễn <sonnn@hoangkhang.com.vn>']
+      @recipients = ['Sơn Nguyễn <sonnn@hoangkhang.com.vn>']
       
       @quick_order = quick_order
       send_email(@recipients.join("; "), "[Tìm Hàng Công Nghệ] - Đơn Đặt Đặt Hàng#{Time.current.strftime('%Y%m%d')}")
