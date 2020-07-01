@@ -4,19 +4,6 @@ module Erp::QuickOrders
     has_many :order_details, dependent: :destroy
     accepts_nested_attributes_for :order_details, :reject_if => lambda { |a| a[:product_id].blank? }, :allow_destroy => true
     
-    if Erp::Core.available?("areas")
-			belongs_to :state, class_name: "Erp::Areas::State"
-			belongs_to :district, class_name: "Erp::Areas::District"
-			
-			def state_name
-				state.present? ? state.name : ''
-			end
-			
-			def district_name
-				district.present? ? district.name : ''
-			end
-		end
-    
     def save_from_cart(cart)
 			order_details = []
 			cart.cart_items.each do |item|
@@ -26,20 +13,7 @@ module Erp::QuickOrders
 					order_details << order_detail
 				else
 					order_detail.quantity += item.quantity
-				end
-				item.product.products_gifts.each do |gift|
-					order_detail = (order_details.select {|o| o.product_id == gift.gift_id}).first
-					if order_detail.nil?
-						order_detail = self.order_details.new(
-								product_id: gift.gift_id,
-								quantity: gift.total_quantity(item),
-								price: gift.price,
-								description: 'Quà tặng')
-						order_details << order_detail
-					else
-						order_detail.quantity += gift.quantity
-					end
-				end
+				end				
 			end
 			order_details.each(&:save)
 		end
